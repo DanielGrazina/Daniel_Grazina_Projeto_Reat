@@ -1,0 +1,122 @@
+/* f1-theme.css - Official Style Upgrade */
+:root {
+  --f1-red: #E10600;
+  --f1-red-dark: #9e0500;
+  --f1-black: #15151E;
+  --f1-carbon: #1f1f27; /* Um pouco mais claro que o preto para cartões */
+  --f1-grey-dark: #38383f;
+  --f1-grey-light: #949498;
+  --f1-white: #ffffff;
+  
+  --f1-border-radius: 12px 0 12px 0; /* Cantos arredondados opostos */
+  --f1-font-primary: "Titillium Web", sans-serif;
+}
+
+/* --- GLOBAL RESET & TYPOGRAPHY --- */
+body {
+  font-family: var(--f1-font-primary);
+  background-color: var(--f1-black);
+  color: var(--f1-white);
+  margin: 0;
+  overflow-x: hidden;
+  background-image: 
+    linear-gradient(rgba(21, 21, 30, 0.95), rgba(21, 21, 30, 0.95)),
+    url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+}
+
+h1, h2, h3, h4 {
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  border-left: 8px solid var(--f1-red);
+  padding-left: 15px;
+  line-height: 1;
+  color: var(--f1-white);
+}
+
+/* --- UI COMPONENTS --- */
+
+/* 1. CARTÕES (Cards) */
+.card-f1 {
+  background-color: var(--f1-carbon);
+  color: var(--f1-white);
+  border-radius: var(--f1-border-radius);
+  border-top: 1px solid var(--f1-grey-dark);
+  border-right: 1px solid var(--f1-grey-dark);
+  /* A borda vermelha agora é mais subtil e moderna */
+  border-left: 4px solid var(--f1-red); 
+  padding: 20px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-f1:hover {
+  transform: translateY(-5px) skewX(-2deg); /* Ligeira inclinação ao passar o rato */
+  box-shadow: 0 10px 30px rgba(225, 6, 0, 0.15); /* Brilho vermelho subtil */
+  border-color: var(--f1-white);
+}
+
+/* 2. BOTÕES (Buttons) */
+.btn-f1 {
+  background-color: transparent;
+  color: var(--f1-white);
+  font-family: var(--f1-font-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding: 12px 24px;
+  border: 1px solid var(--f1-white);
+  border-radius: 20px 0 20px 0; /* Forma aerodinâmica */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Variante primária (Fundo vermelho) */
+.btn-f1-primary {
+  background-color: var(--f1-red);
+  border-color: var(--f1-red);
+}
+
+.btn-f1:hover {
+  background-color: var(--f1-white);
+  color: var(--f1-black);
+  transform: skewX(-10deg); /* Inclinação forte no hover */
+}
+
+.btn-f1-primary:hover {
+  background-color: var(--f1-red-dark);
+  border-color: var(--f1-red-dark);
+  color: white;
+}
+
+/* --- LAYOUT UTILITIES --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Badge de Posição (ex: P1, P2) */
+.position-badge {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--f1-red);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
