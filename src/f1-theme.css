@@ -24,7 +24,7 @@ body {
     url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
   color: var(--f1-white) !important;
   text-transform: uppercase;
   font-style: italic;
