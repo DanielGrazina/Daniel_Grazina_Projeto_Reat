@@ -14,19 +14,19 @@ export default function WeatherWidget({ weather }) {
       {/* Temperatura do Ar */}
       <div>
         <span className="fw-bold fs-5 text-white">{weather.air_temperature}°C</span>
-        <small className="d-block text-muted" style={{ fontSize: "0.7rem" }}>AIR</small>
+        <small className="d-block text-white" style={{ fontSize: "0.7rem" }}>AIR</small>
       </div>
 
       {/* Temperatura da Pista */}
       <div>
         <span className="fw-bold fs-5 text-white">{weather.track_temperature}°C</span>
-        <small className="d-block text-muted" style={{ fontSize: "0.7rem" }}>TRACK</small>
+        <small className="d-block text-white" style={{ fontSize: "0.7rem" }}>TRACK</small>
       </div>
 
       {/* Humidade */}
       <div>
         <span className="fw-bold fs-5 text-white">{weather.humidity}%</span>
-        <small className="d-block text-muted" style={{ fontSize: "0.7rem" }}>HUMIDITY</small>
+        <small className="d-block text-white" style={{ fontSize: "0.7rem" }}>HUMIDITY</small>
       </div>
     </div>
   );
