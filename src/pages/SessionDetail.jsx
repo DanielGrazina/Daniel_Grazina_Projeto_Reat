@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getSessionByKey, getDriversBySession } from "../services/openf1";
+import { getSessionByKey, getDriversBySession, getWeatherBySession } from "../services/openf1";
 import DriverCard from "../components/DriverCard";
+import WeatherWidget from "../components/WeatherWidget";
 
 export default function SessionDetail() {
   const { id } = useParams();
   const [session, setSession] = useState(null);
   const [drivers, setDrivers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [weather, setWeather] = useState(null);
 
   useEffect(() => {
     async function load() {
       try {
         const sessionData = await getSessionByKey(id);
         const driverData = await getDriversBySession(id);
+        const weatherData = await getWeatherBySession(id);
 
         setSession(sessionData[0]);
         setDrivers(driverData);
+        setWeather(weatherData);
       } catch (error) {
         console.error("Erro ao carregar dados", error);
       } finally {
@@ -26,7 +30,7 @@ export default function SessionDetail() {
     load();
   }, [id]);
 
-  // Loader Estilo "Pit Stop"
+  // Loader
   if (loading) return (
     <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: "60vh" }}>
       <div className="spinner-border text-danger mb-3" style={{ width: "3rem", height: "3rem" }} role="status"></div>
@@ -44,7 +48,7 @@ export default function SessionDetail() {
   return (
     <div className="container mt-5 fade-in">
       
-      {/* 1. HEADER DA SESSÃO - Estilo TV Broadcast */}
+      {/* HEADER DA SESSÃO */}
       <div className="mb-5 position-relative" style={{ 
         borderLeft: "8px solid var(--f1-red)",
         background: "linear-gradient(90deg, var(--f1-grey-dark) 0%, rgba(21, 21, 30, 0) 100%)",
@@ -59,17 +63,17 @@ export default function SessionDetail() {
             <h1 className="display-4 fw-bold text-uppercase fst-italic mb-0" style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.5)" }}>
               {session.session_name}
             </h1>
+            <WeatherWidget weather={weather} />
             <h6>Ordem dos pilotos de acordo com os seus numeros (não os resultados da sessão)</h6>
           </div>
           
-          {/* Botão de Data (simulado, se a API tivesse data exata aqui seria ótimo) */}
           <div className="text-end mt-3 mt-md-0">
              <span className="badge bg-dark border border-secondary p-2">OFFICIAL SESSION</span>
           </div>
         </div>
       </div>
 
-      {/* 2. LISTA DE PILOTOS */}
+      {/* LISTA DE PILOTOS */}
       <div className="row align-items-center mb-4">
         <div className="col">
           <h3 className="fst-italic text-uppercase">
