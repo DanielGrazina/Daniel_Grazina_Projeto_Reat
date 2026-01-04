@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getSessionByKey, getDriversBySession, getWeatherBySession } from "../services/openf1";
+import { getSessionByKey, getDriversBySession, getWeatherBySession, getLapsByDriver } from "../services/openf1";
 import DriverCard from "../components/DriverCard";
 import WeatherWidget from "../components/WeatherWidget";
+import TelemetryModal from "../components/TelemetryModal";
 
 export default function SessionDetail() {
   const { id } = useParams();
@@ -10,6 +11,8 @@ export default function SessionDetail() {
   const [drivers, setDrivers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState(null);
+  const [selectedDriver, setSelectedDriver] = useState(null);
+  const [driverLaps, setDriverLaps] = useState([]);
 
   useEffect(() => {
     async function load() {
@@ -44,6 +47,15 @@ export default function SessionDetail() {
       <Link to="/sessions" className="btn-f1 mt-3">Voltar</Link>
     </div>
   );
+
+  // Função chamada ao clicar num piloto
+  async function handleDriverClick(driver) {
+    setSelectedDriver(driver); 
+    setDriverLaps([]);
+    
+    const laps = await getLapsByDriver(session.session_key, driver.driver_number);
+    setDriverLaps(laps);
+  }
 
   return (
     <div className="container mt-5 fade-in">
@@ -95,7 +107,14 @@ export default function SessionDetail() {
       {/* Grid Layout: 1 coluna em mobile, 2 em tablets/desktop */}
       <div className="row g-4">
         {drivers.map(driver => (
-          <div className="col-12 col-md-6 col-xl-4" key={driver.driver_number}>
+          <div 
+            className="col-12 col-md-6 col-xl-4 driver-clickable"
+            key={driver.driver_number}
+            onClick={() => handleDriverClick(driver)}
+            style={{ cursor: "pointer", transition: "transform 0.2s" }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.02)"}
+            onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+          >
             <DriverCard driver={driver} />
           </div>
         ))}
@@ -107,6 +126,13 @@ export default function SessionDetail() {
         </Link>
       </div>
 
+      {selectedDriver && (
+        <TelemetryModal 
+          driver={selectedDriver} 
+          laps={driverLaps} 
+          onClose={() => setSelectedDriver(null)} 
+        />
+      )}
     </div>
   );
 }

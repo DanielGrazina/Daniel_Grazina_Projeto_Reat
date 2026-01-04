@@ -26,3 +26,20 @@ export async function getWeatherBySession(sessionKey) {
     return null;
   }
 }
+
+export async function getLapsByDriver(sessionKey, driverNumber) {
+  try {
+    const response = await fetch(`https://api.openf1.org/v1/laps?session_key=${sessionKey}&driver_number=${driverNumber}`);
+    const data = await response.json();
+    
+    // Remover voltas que têm duração null ou undefined
+    const validLaps = data.filter(l => l.lap_duration !== null && l.lap_duration !== undefined);
+    
+    // Ordenar voltas
+    return validLaps.sort((a, b) => a.lap_duration - b.lap_duration);
+    
+  } catch (error) {
+    console.error("Erro ao buscar voltas:", error);
+    return [];
+  }
+}
