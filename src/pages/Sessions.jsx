@@ -10,6 +10,7 @@ export default function Sessions() {
 
   // Filtros e Paginação
   const [filters, setFilters] = useState({ year: 'all', location: 'all' });
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
@@ -26,10 +27,18 @@ export default function Sessions() {
     });
   }, []);
 
-  // --- LÓGICA DE FILTRAGEM (USANDO USEMEMO) ---
+  // --- LÓGICA DE FILTRAGEM (Pesquisa + Ano + Local) ---
   const filteredSessions = useMemo(() => {
     let result = allSessions;
 
+    if (searchTerm) {
+      const lowerTerm = searchTerm.toLowerCase();
+      result = result.filter(s => 
+        s.session_name.toLowerCase().includes(lowerTerm) || 
+        s.location.toLowerCase().includes(lowerTerm)
+      );
+    }
+    
     if (filters.year !== 'all') {
       result = result.filter(s => s.year.toString() === filters.year);
     }
@@ -39,7 +48,7 @@ export default function Sessions() {
     }
 
     return result;
-  }, [allSessions, filters]);
+  }, [allSessions, filters, searchTerm]);
 
   // --- CALCULOS PARA DROPDOWNS ---
   const availableYears = useMemo(() => {
@@ -54,6 +63,11 @@ export default function Sessions() {
   // --- HANDLERS ---
   const handleFilterChange = (type, value) => {
     setFilters(prev => ({ ...prev, [type]: value }));
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (value) => {
+    setSearchTerm(value);
     setCurrentPage(1);
   };
 
@@ -82,6 +96,7 @@ export default function Sessions() {
         years={availableYears} 
         locations={availableLocations} 
         onFilterChange={handleFilterChange} 
+        onSearchChange={handleSearchChange} 
       />
 
       <div className="row">
@@ -97,7 +112,8 @@ export default function Sessions() {
                 className="btn-f1 mt-2" 
                 onClick={() => {
                     setFilters({ year: 'all', location: 'all' });
-                    setCurrentPage(1);
+                    setSearchTerm("");
+                    window.location.reload();
                 }}
             >
                 Limpar Filtros
