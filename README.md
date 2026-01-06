@@ -1,94 +1,94 @@
 # 🏎️ F1 Telemetry Dashboard
 
-Este projeto é uma aplicação web desenvolvida em **React** que consome dados reais da Fórmula 1 através da **OpenF1 API**. O objetivo é simular uma interface de transmissão televisiva ("Broadcast TV"), permitindo aos utilizadores consultar sessões, resultados de corridas e telemetria detalhada de pilotos.
+This project is a web application built with **React** that consumes real Formula 1 data via the **OpenF1 API**. The goal is to simulate a TV Broadcast interface, allowing users to browse sessions, race results, and detailed driver telemetry.
 
-Projeto realizado no âmbito da unidade curricular **UC00610** [React + Rest API].
+Project developed for the **UC00610** course unit [React + Rest API].
 
-Este projeto está publicado online atravez do vercel: [site online](https://daniel-grazina-projeto-reat.vercel.app/)
+This project is deployed online via Vercel: [Live Site](https://daniel-grazina-projeto-reat.vercel.app/)
 
-## 📋 Funcionalidades Principais
+## 📋 Key Features
 
-O projeto vai além do consumo básico de API, implementando várias funcionalidades avançadas:
+The project goes beyond basic API consumption by implementing several advanced features:
 
-### 1. Navegação e Pesquisa
-* **Listagem de Sessões:** Visualização de todas as sessões disponíveis na API.
-* **Filtros Avançados:** Filtragem dinâmica por **Temporada (Ano)** e **Grande Prémio (Local)**.
-* **Barra de Pesquisa:** Pesquisa em tempo real por nome do circuito ou sessão.
-* **Paginação:** Navegação fluida entre páginas de resultados.
+### 1. Navigation and Search
+* **Session Listing:** View all sessions available in the API.
+* **Advanced Filters:** Dynamic filtering by **Season (Year)** and **Grand Prix (Location)**.
+* **Search Bar:** Real-time search by circuit or session name.
+* **Pagination:** Fluid navigation between result pages.
 
-### 2. Detalhes da Sessão (Session Hub)
-* **Pilotos da sessão:** Os pilotos são ordenados pelo número do carro.
-* **Meteorologia (Weather Widget):** Dados climáticos da sessão (Temp. do Ar, Pista e Humidade).
-* **Design Oficial:** Identidade visual inspirada nos gráficos oficiais da FIA/F1 (Fontes, Cores e Formas geométricas).
+### 2. Session Details (Session Hub)
+* **Session Drivers:** Drivers are sorted by car number.
+* **Weather Widget:** Session weather data (Air Temp, Track Temp, and Humidity).
+* **Official Design:** Visual identity inspired by official FIA/F1 graphics (Fonts, Colors, and Geometric shapes).
 
-### 3. Telemetria do Piloto (Driver Overlay)
-* **Modal Interativo:** Ao clicar num piloto, abre-se um painel de detalhes sobreposto.
-* **Best Lap Analysis:** Cálculo automático da volta mais rápida do piloto na sessão.
-* **Análise de Setores:** Gráfico visual proporcional que mostra o desempenho nos Setores 1, 2 e 3.
+### 3. Driver Telemetry (Driver Overlay)
+* **Interactive Modal:** Clicking on a driver opens an overlay detail panel.
+* **Best Lap Analysis:** Automatic calculation of the driver's fastest lap in the session.
+* **Sector Analysis:** Proportional visual chart showing performance in Sectors 1, 2, and 3.
 
 ---
 
-## 🛠️ Tecnologias Usadas
+## 🛠️ Technologies Used
 
 * **React** (Vite)
-* **Bootstrap 5** (Layout e Responsividade)
-* **CSS Customizado** (Tema "F1 Broadcast" com variáveis CSS)
-* **OpenF1 API** (Dados)
+* **Bootstrap 5** (Layout and Responsiveness)
+* **Custom CSS** ("F1 Broadcast" theme with CSS variables)
+* **OpenF1 API** (Data)
 
 ---
 
-## 📡 Sobre a API (OpenF1)
+## 📡 About the API (OpenF1)
 
-Este projeto utiliza a [OpenF1 API](https://openf1.org/), uma API pública e gratuita que fornece dados de cronometragem e telemetria.
+This project uses the [OpenF1 API](https://openf1.org/), a free and public API that provides timing and telemetry data.
 
-**Endpoints utilizados:**
-* `/sessions` - Para listar corridas e sessões de treino.
-* `/drivers` - Para obter a lista de pilotos de cada sessão.
-* `/laps` - Para calcular tempos de volta, setores e classificação final.
-* `/weather` - Para obter as condições da pista.
+**Endpoints used:**
+* `/sessions` - To list races and practice sessions.
+* `/drivers` - To get the driver list for each session.
+* `/laps` - To calculate lap times, sectors, and final classification.
+* `/weather` - To get track conditions.
 
-> **Nota Importante sobre Limites da API:**
-> A versão gratuita da OpenF1 tem limites de requisições (Rate Limiting). Se aparecerem erros na consola (429 Too Many Requests), o projeto está programado para lidar com isso graciosamente (mostrando listas vazias ou loaders) para evitar crashes.
+> **Important Note regarding API Limits:**
+> The free version of OpenF1 has request limits (Rate Limiting). If console errors appear (429 Too Many Requests), the project is programmed to handle this gracefully (showing empty lists or loaders) to avoid crashes.
 
 ---
 
-## 🚀 Instruções de Instalação e Execução
+## 🚀 Installation and Execution Instructions
 
-Para rodar este projeto localmente, siga os passos abaixo:
+To run this project locally, follow the steps below:
 
-### 1. Pré-requisitos
-Certifique-se de que tem o **Node.js** instalado na sua máquina.
+### 1. Prerequisites
+Ensure you have **Node.js** installed on your machine.
 
-### 2. Instalar Dependências
-Abra o terminal na pasta do projeto e execute:
+### 2. Install Dependencies
+Open the terminal in the project folder and run:
 
 ```bash
 npm install
 ```
 
-### 3. Iniciar o Servidor de Desenvolvimento
-Para iniciar a aplicação:
+### 3. Start Development Server
+To start the application:
 
 ```bash
 npm run dev
 ```
-O terminal irá indicar o endereço local (geralmente http://localhost:5173/). Abra esse link no seu browser.
+The terminal will indicate the local address (usually http://localhost:5173/). Open this link in your browser.
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📂 Project Structure
 
-* `src/components/` - Componentes reutilizáveis (Navbar, Cards, Modais, Filtros).
+* `src/components/` - Reusable components (Navbar, Cards, Modals, Filters).
 
-* `src/pages/` - Páginas principais (Home, Sessions, SessionDetail).
+* `src/pages/` - Main pages (Home, Sessions, SessionDetail).
 
-* `src/services/` - Lógica de comunicação com a API (Fetch e tratamento de erros).
+* `src/services/` - API communication logic (Fetch and error handling).
 
-* `src/f1-theme.css` - Estilos globais e tema visual.
+* `src/f1-theme.css` - Global styles and visual theme.
 
 ---
 
-## 👤 Autor
+## 👤 Author
 
 * Daniel Grazina 
-    - Desenvolvido no ambito da UC00610 - Dezembro 2025/Janeiro 2026.
+    - Developed for the UC00610 course unit - December 2025/January 2026.
